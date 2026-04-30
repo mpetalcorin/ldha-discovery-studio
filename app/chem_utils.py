@@ -83,7 +83,7 @@ def basic_properties(smiles: str):
     return props
 
 
-def calculate_mordred_descriptors(smiles: str):
+def calculate_placeholder_descriptors(smiles: str):
     return None
 
 
