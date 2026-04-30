@@ -1,8 +1,1 @@
 streamlit
-pandas
-numpy
-scikit-learn
-joblib
-plotly
-requests
-Pillow
