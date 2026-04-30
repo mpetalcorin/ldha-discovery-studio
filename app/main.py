@@ -16,14 +16,18 @@ from app.model_utils import (
 
 
 st.set_page_config(
-    page_title="LDHA Inhibitor Discovery Studio",
+    page_title="aAidea LDHA Discovery Studio",
     page_icon="🧬",
     layout="wide",
 )
 
 st.title("aAidea LDHA Discovery Studio")
-st.caption(
-    "AI-guided screening of candidate LDHA inhibitors for cancer metabolism research."
+st.caption("AI-guided screening of candidate LDHA inhibitors for cancer metabolism research.")
+
+st.warning(
+    "This Streamlit Cloud version uses a lightweight no-RDKit deployment mode because "
+    "Streamlit Cloud is currently running Python 3.14, which is incompatible with rdkit-pypi. "
+    "The full RDKit/Mordred/LightGBM version can be deployed later with Docker or Render."
 )
 
 st.markdown(
@@ -42,8 +46,8 @@ with st.sidebar:
 
     examples = {
         "Oxamate": "NC(=O)C(=O)O",
-        "Gossypol-like fragment": "COc1cc(O)c(C=O)c(O)c1",
-        "Small aromatic acid": "O=C(O)c1ccccc1O",
+        "Aromatic acid": "O=C(O)c1ccccc1O",
+        "Nicotinamide-like": "NC(=O)c1ccncc1",
         "Custom": "",
     }
 
@@ -53,11 +57,11 @@ with st.sidebar:
     st.markdown("### Workflow")
     st.markdown(
         """
-1. Enter SMILES
-2. Validate molecule
-3. Calculate properties
-4. Predict LDHA inhibition
-5. Rank candidate potential
+1. Enter SMILES  
+2. Estimate molecular properties  
+3. Predict LDHA inhibition probability  
+4. Evaluate drug-likeness  
+5. Rank candidate potential  
 """
     )
 
@@ -73,7 +77,7 @@ if smiles:
     mol = validate_smiles(smiles)
 
     if mol is None:
-        st.error("Invalid SMILES. Please enter a valid chemical structure.")
+        st.error("Invalid SMILES-like input. Please enter a valid structure string.")
     else:
         props = basic_properties(smiles)
         X = build_feature_frame(props, feature_names)
@@ -127,7 +131,7 @@ if smiles:
             chart_df,
             x="Property",
             y="Value",
-            title="Calculated Molecular Properties",
+            title="Estimated Molecular Properties",
         )
 
         st.plotly_chart(fig, use_container_width=True)
@@ -158,6 +162,6 @@ else:
 
 st.markdown("---")
 st.caption(
-    "Disclaimer: This app uses a local demo model unless replaced with a trained production model. "
+    "Disclaimer: This app uses a lightweight deployment model. "
     "Predictions are not medical advice and must be experimentally validated."
 )
