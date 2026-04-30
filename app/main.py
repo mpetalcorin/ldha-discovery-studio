@@ -24,10 +24,9 @@ st.set_page_config(
 st.title("aAidea LDHA Discovery Studio")
 st.caption("AI-guided screening of candidate LDHA inhibitors for cancer metabolism research.")
 
-st.warning(
-    "This Streamlit Cloud version uses a lightweight no-RDKit deployment mode because "
-    "Streamlit Cloud is currently running Python 3.14, which is incompatible with rdkit-pypi. "
-    "The full RDKit/Mordred/LightGBM version can be deployed later with Docker or Render."
+st.info(
+    "This public MVP uses a lightweight deployment mode for fast browser access. "
+    "A full cheminformatics version with molecular rendering and descriptor calculation can be deployed later with Docker or Render."
 )
 
 st.markdown(
